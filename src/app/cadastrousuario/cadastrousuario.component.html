@@ -1,0 +1,112 @@
+<div class="container h-100">
+<br>
+<h3>Cadastro de Usuario</h3>
+<hr>
+<div class="justify-content-left align-items-centeralign-items">
+ <form  [formGroup]="registerForm">
+  <div class="form-row justify-content-center align-items-centeralign-items">
+    <div class="form-group col-md-6">
+      <label >Nome</label>
+      <input type="text" class="form-control"
+      [ngClass]="{'is-invalid': registerForm.get('nome').errors && registerForm.get('nome').touched}"
+      formControlName="nome" placeholder="Insira o Nome">
+      <div  *ngIf="registerForm.get('nome').hasError('required')
+      && registerForm.get('nome').touched" class="invalid-feedback">
+      Nome é obrigatorio.
+    </div>
+    <div *ngIf="registerForm.get('nome').hasError('minlength')
+    && registerForm.get('nome').touched" class="invalid-feedback">
+    Nome deve ter no minimo 3 caracteres.
+  </div>
+  <div *ngIf="registerForm.get('nome').hasError('maxlength')
+  && registerForm.get('nome').touched" class="invalid-feedback">
+  Nome deve ter no máximo 200 caracteres.
+</div>
+</div>
+
+
+
+<div class="form-group col-md-3" >
+<label>Data de Nacimento</label>
+<input type="text" class="form-control"
+bsDatepicker
+[bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+[ngClass]="{'is-invalid': registerForm.get('dataNacimento').errors && registerForm.get('dataNacimento').touched}"
+placeholder="Insira a Data de Nacimento" formControlName="dataNacimento">
+<div *ngIf="registerForm.get('dataNacimento').hasError('required')
+&& registerForm.get('dataNacimento').touched" class="invalid-feedback">
+Data Nacimento é obrigatorio.
+</div>
+</div>
+
+</div>
+
+<div class="form-row justify-content-center align-items-centeralign-items" >
+  <div class="form-group col-md-6">
+    <label>Email</label>
+    <input type="text" class="form-control"
+    [ngClass]="{'is-invalid': registerForm.get('email').errors && registerForm.get('email').touched}"
+    placeholder="Insira o Email" formControlName="email">
+    <div *ngIf="registerForm.get('email').hasError('required')
+    && registerForm.get('email').touched" class="invalid-feedback">
+    Email é obrigatorio.
+    </div>
+    <div *ngIf="registerForm.get('email').hasError('email')
+    && registerForm.get('email').touched" class="invalid-feedback">
+    Debeser um e-mail valido.
+  </div>
+  </div>
+
+  <div class="form-group col-md-3">
+    <label >Sexo</label>
+  <select  class="selectpicker form-control  placeholder"
+  [ngClass]="{'is-invalid': registerForm.get('idsexo').errors && registerForm.get('idsexo').touched}"
+  formControlName="idsexo"
+  title="Seleccione um sexo da lista">
+
+    <option ></option>
+    <option value="1">Feminino</option>
+    <option value="2">Masculino</option>
+  </select>
+  <div *ngIf="registerForm.get('idsexo').hasError('required')
+&& registerForm.get('idsexo').touched" class="invalid-feedback">
+Sexo é obrigatorio.
+</div>
+</div>
+
+</div>
+
+<div class="form-row ">
+<div class="form-group col-md-5 ">
+<div style="margin-left:145px;">
+<label >Senha</label>
+
+<input type="text" class="form-control"
+[ngClass]="{'is-invalid': registerForm.get('senha').errors && registerForm.get('senha').touched}"
+placeholder="Insira a Senha" formControlName="senha">
+
+<div *ngIf="registerForm.get('senha').hasError('required')
+&& registerForm.get('senha').touched" class="invalid-feedback">
+Senha é obrigatorio.
+</div>
+</div>
+</div>
+
+</div>
+<hr>
+<div class="d-flex flex-row-reverse">
+<div style="align-items: flex-end;">
+  <button class="btn btn-primary ml-auto"  (click)="cadastrarUsuario(template)">
+    Cadastrar
+  </button>
+
+  <a [routerLink]="['/relatorio']"  class="btn btn-secondary">
+    Sair
+   </a>
+
+</div>
+</div>
+
+</form>
+</div>
+</div>

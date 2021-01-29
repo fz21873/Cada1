@@ -1,0 +1,107 @@
+
+<div class="container">
+<br>
+  <h3>Relatorio Cadastro Usuario </h3>
+  <hr>
+  <form [formGroup]="registerForm" class="form-inline" >
+<div  class="form-row">
+
+    <div class=" form-group">
+      <label class="mr-2" >Nome:</label>
+      <input id="nome" type="text" class="form-control mr-2" placeholder="Nome"
+      formControlName="nome" [(ngModel)]="nome" >
+      <label class="mr-2">Ativo:</label>
+      <select  class="selectpicker form-control  placeholder"
+      title="Seleccione um opcion da lista" formControlName="ativo" [(ngModel)]="ativo"  (click)="limpiar()" >
+
+      <option onselect="limpiar()" ></option>
+      <option onselect="limpiar()" value="true">Sim</option>
+      <option onselect="limpiar()" value="false">Não</option>
+    </select>
+      <button  style="margin: 20px;" class="btn btn-outline-success" (click)=" filtrarUsuario(nome,ativo)">
+        Filtrar
+      </button>
+    </div>
+
+
+
+
+  </div>
+
+
+</form>
+<table class="table table-striped">
+  <thead class="thead-light">
+    <tr >
+
+      <th>#</th>
+      <th>Nome</th>
+      <th>Data Nacimento</th>
+      <th>Email</th>
+      <th>Senha</th>
+      <th>Sexo</th>
+      <th>Ativo</th>
+      <th colspan="2">Opções</th>
+    </tr>
+  </thead>
+  <tbody >
+    <tr *ngFor="let usuario of usuarios ">
+
+      <td>{{usuario.idUsuario}}</td>
+      <td>{{usuario.nome}}</td>
+      <td>{{usuario.dataNacimento | DateTimeFormat}}</td>
+      <td>{{usuario.email}}</td>
+      <td>{{usuario.senha}}</td>
+      <td>{{sexoConvert(usuario.idSexo)}}</td>
+      <td>{{activoConvert(usuario.ativo)}}</td>
+
+      <td>
+        <div class="btn-group">
+          <a [routerLink]="[usuario.idUsuario,'edit']" tooltip="Editar" class="btn btn-sm btn-success">
+            <i class="fa fa-eraser"></i>
+          </a>
+
+
+        <button class="btn btn-sm btn-danger"
+         tooltip="Excluir" (click)="excluirUsuario(usuario,confirm)" >
+          <i class="fa fa-eraser"></i>
+        </button>
+      </div>
+    </td>
+
+  </tr>
+</tbody>
+<tfoot  *ngIf="!usuarios" >
+  <tr>
+    <td colspan="7" class="text-center">
+      <h4>Nenhun usuario encontrado!</h4>
+    </td>
+  </tr>
+</tfoot>
+</table>
+
+</div>
+
+
+<div bsModal #confirm="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-label="Close">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">
+          Deletando Usuario
+        </h4>
+        <button type="button" class="close pull rigth" (click)="confirm.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{bodyDeletarUsuario}}</p>
+      </div>
+      <div class="modal-footer btn-group d-flex">
+        <button type="button" class="btn btn-outline-primary" (click)="confirm.hide()">
+          CANCELAR
+        </button>
+        <button type="button" class="btn btn-outline-danger" (click)="confirmeDelete(confirm)">
+          DELETAR
+        </button>
+      </div>
